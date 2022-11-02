@@ -5,8 +5,11 @@ class Genre:
 		self.setGenre()
 		
 	def setGenre(self):
-		genre = self.file.split('.')[0]
-		self.genre = genre
+		if self.file:
+			genre = self.file.split('.')[0]
+			self.genre = genre
+		else:
+			self.genre = None
 
 	def setImage(self, img):
 		self.image = img
@@ -14,7 +17,7 @@ class Genre:
 	# changed 1 to -1, should not assume that file is first in array, we can assume it is always last in the array
 	def setFile(self, file):
 		if file.split('.')[-1] != 'txt':
-			self.file = 'No file!!'
+			self.file = None
 		else:
 			self.file = file
 

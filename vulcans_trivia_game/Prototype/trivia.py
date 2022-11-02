@@ -53,13 +53,14 @@ DEBUG = "debug"+native_separator+'debug_questions.txt'
 #DEBUG = ".."+native_separator+'debug'+native_separator+'debug_questions.txt'
 FILE_PATHS.append(DEBUG) 
 FILE_PATHS.append("") # was added for header file
+FILE_PATHS.append("") # for Intro 
 
 # Images
 PNGS = ["StarTrek_Logo.png", "StarWars_Logo.png", "Marvel_Logo.png", "DC_Logo.png", "Vulcan_Game_Intro.png", "Vulcan_Header.png"]
 PNG_PATHS = ["images"+native_separator+png for png in PNGS]
 #PNG_PATHS = [".."+native_separator+"images"+native_separator+png for png in PNGS]
 IMAGES = [PhotoImage(file=png) for png in PNG_PATHS]
-IMAGES.append('')
+IMAGES.insert(4,'') # For debug
 
 # Genres
 GENRES = [Genre(file, img) for file, img in zip(FILE_PATHS, IMAGES)]
@@ -70,17 +71,18 @@ results = Score()
 
 # loading screen
 def streamVideo():
-	clip = VideoFileClip('Prototype/videos/Vulcan_Intro.mp4')
+	clip = VideoFileClip('videos/Vulcan_Intro.mp4')
 	#clip = VideoFileClip(".."+native_separator+"Prototype"+native_separator+"videos"+native_separator+"Vulcan_Intro.mp4")
 	clip.preview()
 	pygame.quit()
 
+# Main Menu Page
 def main_menu():
     # Clear screen
     clear()
     clearGenre()
     root.configure(bg = BG[light_mode])
-    displayLogo = Label(root, image = GENRES[4].image, bg = 'black')
+    displayLogo = Label(root, image = GENRES[5].image, bg = 'black')
     startButton = tk.Button(root, text = "Click Here To Play!", fg = 'white', bg = MBC[light_mode], command=main_hub)
     settingsButton = tk.Button(root, text = "Settings", fg = 'white', bg = MBC[light_mode], command=settings)
     
@@ -88,13 +90,14 @@ def main_menu():
     displayLogo.place(x=0,y=0)
     startButton.place(x=400, y=462)
     settingsButton.place(x=835, y=462)
-    
+
+# Settings Page    
 def settings():
     # Clear screen
     clear()
     root.configure(bg = BG[light_mode])
     # clear results
-    header = Label(root, image = GENRES[5].image, bg = 'black')
+    header = Label(root, image = GENRES[6].image, bg = 'black')
     displayName = tk.Label(root, text="Settings!", font = Fonts.subtitle, fg = QFC[light_mode], bg = BG[light_mode])
     settingButtons = []
     settingButtons.append(tk.Button(root, text = "  Dark Mode   " if light_mode else "   Light Mode  ", fg = 'white', font = Fonts.text, bg = MBC[light_mode], command=toggleLight))
@@ -112,6 +115,7 @@ def settings():
         but.place(x=pos[0], y=pos[1])
     homeButton.place(x=835, y=460)
 
+# Main Hub for selecting Genre
 def main_hub():
 	# Clear screen
 	clear()
@@ -119,7 +123,7 @@ def main_hub():
 	# clear results
 	results.reset()
 	clearGenre()
-	header = Label(root, image = GENRES[5].image, bg = 'black')
+	header = Label(root, image = GENRES[6].image, bg = 'black')
 	genreButtons = []
 	genreButtons.append(tk.Button(root, image = GENRES[0].image, bg = 'black', command=lambda:selectGenre(0)))
 	genreButtons.append(tk.Button(root, image = GENRES[1].image, bg = 'black', command=lambda:selectGenre(1)))
@@ -137,12 +141,12 @@ def main_hub():
 	debugButton.place(x=835, y=460)
 	multiButton.place(x=790, y=460)
 
-
+# Number of Questions
 def choose_Num_Questions():
 	#clear screen
 	clear()
 	root.configure(bg = BG[light_mode])
-	header = Label(root, image = GENRES[5].image, bg = 'black')
+	header = Label(root, image = GENRES[6].image, bg = 'black')
 	subTitle = tk.Label(root,text="Click on how many questions you would like!", font = Fonts.subtitle, fg = QFC[light_mode], bg = BG[light_mode])
 	genreButtons = [] 
 	genreButtons.append(tk.Button(root, text = "5 Questions  ", font = Fonts.text, bg = MBC[light_mode], fg = 'white', command=lambda:setQuizSize(5)))
@@ -159,13 +163,13 @@ def choose_Num_Questions():
 		but.place(x=pos[0], y=pos[1])
 	homeButton.place(x=835, y=460)
 
-
+# back end of trivia game
 def triviaGame(q):
 	questionNum = results.getNumAns() + 1
 	totalQuestions = questions.quizSize
 
 	# Create widgets
-	header = Label(root, image = GENRES[5].image, bg = 'black')
+	header = Label(root, image = GENRES[6].image, bg = 'black')
 	questionCount = tk.Label(root,text=f"Question: {questionNum}/{totalQuestions}", font = Fonts.subtitle, fg = 'white', bg = 'slate grey')
 	questionBox = tk.Label(root, text=q.getQ(), wraplength = 400, font = Fonts.subtitle, fg= QFC[light_mode], bg = BG[light_mode])
 	trueBut = tk.Button(root, text="TRUE", font = Fonts.button, fg='white', bg='green3', command=lambda:clickAnswer(q, True))
@@ -241,7 +245,7 @@ def showPlayQuit():
 	quit = tk.Button(root, text='      Quit      ', bg = 'red4', fg='white', font=Fonts.button_small, command=root.quit)
 	quit.place(x=625, y=400)
 
-
+# Results Page
 def printResults():
 	clear()
 	# Get total correct
@@ -250,7 +254,7 @@ def printResults():
 	# Get percent right
 	percent = results.getPercent()
  
-	header = Label(root, image = GENRES[5].image, bg = 'black')
+	header = Label(root, image = GENRES[6].image, bg = 'black')
 	header.pack(ipadx=0, ipady=0, fill = 'x')
 
 	# Check if score is above a certain threshold, and create a separate message for each case
@@ -319,7 +323,7 @@ def setQuestions(new_questions):
 def multiGenre():
 	questions = []
 	for genre in GENRES:
-		if genre.file != DEBUG:		# All but debug
+		if genre.file != DEBUG and genre.file != None:		# All but debug
 			for q in getQuestions(genre.file):
 				questions.append(q)
 	setQuestions(questions)
@@ -339,10 +343,10 @@ def selectGenre(num):
 	clearGenre()
 	global selected_genre
 
-	if num > len(GENRES) -1:
+	if num > 4:
 		clearGenre()
 		choose_Num_Questions()
-	elif num == len(GENRES)-1:
+	elif num == 4:
 		selected_genre = GENRES[num]
 		setQuizSize(3)
 	else:
@@ -392,18 +396,18 @@ def showAnswers():
 
 	showPlayQuit()
 
-	# Toggle between light and dark
+# Toggle between light and dark
 def toggleLight():
 	global light_mode
 	light_mode = not light_mode
 	settings()
 
-	# Toggle between timer on and off
+# Toggle between timer on and off
 def toggleTimer():
 	results.toggleTimer()
 	settings()
 
-	# Show game info
+# Show game info
 def info():
 	clear()
 	menu = tk.Label(root,text=gameTitle, font = Fonts.title, fg = 'white', bg = 'black')
@@ -416,14 +420,15 @@ def info():
 	homeButton = tk.Button(root, text='Home', fg = 'white', bg = MBC[light_mode], command=main_menu)
 	homeButton.place(x=835, y=460)
  
+# How to Play in Settings 
 def tutorial():
-	clear();
+	clear()
 	root.configure(bg = BG[light_mode])
-	step_1 = "Step 1: Click on any genre"
-	step_2 = "Step 2: Click number of questions"
+	step_1 = "Step 1: Select any genre"
+	step_2 = "Step 2: Select number of questions"
 	step_3 = "Step 3: Read question"
-	step_4 = "Step 4: Choose true of false"
-	step_5 = "Step 5: Click next to go to next question"
+	step_4 = "Step 4: Choose 'true' or 'false'"
+	step_5 = "Step 5: Click 'next' to go to next question"
 	step_6 = "Step 6: See results/Play again"
  
 	steps = []
