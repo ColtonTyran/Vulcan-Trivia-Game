@@ -5,7 +5,6 @@
 - Doing this for a fun game and practice among software engineering practice with a team and using agile methods.
 ​
 ## Table of Contents
-*
 * [Description](#vision questions)
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
