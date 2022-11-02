@@ -2,9 +2,10 @@
 - Created by Colton Tyran, Alex Walker, and Gabriel Simon
 - A trivia game on well known genres in pop culture.
 - Was created for trivia enthusists. 
-- Doing this for a fun game and practice among software engineering practice with a team.
+- Doing this for a fun game and practice among software engineering practice with a team and using agile methods.
 ​
 ## Table of Contents
+*
 * [Description](#vision questions)
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
@@ -73,7 +74,7 @@
 Each team member completed the following tasks and each branch associated with the changes have been included.
 
 - Colton Tyran
-	- Created and implemented a loading screen (VTG-36-loading-screen), created and implemented a main menu (VTG-29-main-menu), created a selection page for 5/10/15/20 question mode (VTG-30-add-5-10-15-20-question-page), added a settings page/home button for navigation (VTG-31-home-button), polished GUI, added a loading screen and a game header (VTG-8-gui-polish).
+	- Created and implemented a loading screen (VTG-36-loading-screen), created and implemented a main menu (VTG-29-main-menu), created a selection page for 5/10/15/20 question mode (VTG-30-add-5-10-15-20-question-page), added a settings page/home button for navigation (VTG-31-home-button), polished GUI, and added a game header (VTG-8-gui-polish).
 - Alex Walker 
 	- Created Home button and implementation (feature/VTG-42-create-button-implementation-for-), created and implemented retest/replay buttons (feature/VTG-34-retest-replay-buttons), created and implemented mixed-genre mode (feature/VTG-37-mixed-genre-mode7), implemented 5/10/15/20 question modes (feature/VTG-38-create-5-10/15/20-question-game-m), implemented game time (VTG-33-game-timer), implemented duplicate question protection (feature/VTG-32-duplicate-question-protection).
 - Gabriel Simon 
